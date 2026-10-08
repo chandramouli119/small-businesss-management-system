@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopMate - Small Shop Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-store"></i>
+            </div>
+
+            <div>
+                <h2>ShopMate</h2>
+                <span>Business Manager</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="nav-item active" onclick="showPage('dashboard', this)">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" onclick="showPage('sales', this)">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Sales</span>
+            </button>
+
+            <button class="nav-item" onclick="showPage('expenses', this)">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <span>Expenses</span>
+            </button>
+
+            <button class="nav-item" onclick="showPage('inventory', this)">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <span>Inventory</span>
+            </button>
+
+            <button class="nav-item" onclick="showPage('customers', this)">
+                <i class="fa-solid fa-users"></i>
+                <span>Customers</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button class="nav-item" onclick="toggleDarkMode()">
+                <i class="fa-solid fa-moon"></i>
+                <span>Dark Mode</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- Header -->
+        <header class="header">
+
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="currentDate"></p>
+            </div>
+
+            <div class="header-right">
+
+                <div class="notification">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <div class="profile">
+                    <div class="profile-image">R</div>
+
+                    <div>
+                        <strong>Shop Owner</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main>
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard" class="page active-page">
+
+                <div class="welcome">
+
+                    <div>
+                        <h2>Good Morning! 👋</h2>
+                        <p>Here's what's happening with your shop today.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openSaleModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Sale
+                    </button>
+
+                </div>
+
+
+                <!-- Statistics -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon sales-icon">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+
+                        <div>
+                            <p>Total Sales</p>
+                            <h2 id="totalSales">₹0</h2>
+                            <small class="positive">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                Today
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon expense-icon">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+
+                        <div>
+                            <p>Total Expenses</p>
+                            <h2 id="totalExpenses">₹0</h2>
+                            <small>Today</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon profit-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div>
+                            <p>Net Profit</p>
+                            <h2 id="totalProfit">₹0</h2>
+                            <small class="positive">
+                                Sales - Expenses
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon stock-icon">
+                            <i class="fa-solid fa-box"></i>
+                        </div>
+
+                        <div>
+                            <p>Stock Items</p>
+                            <h2 id="totalStock">0</h2>
+                            <small>Available</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Quick Actions -->
+
+                <div class="section-header">
+                    <div>
+                        <h2>Quick Actions</h2>
+                        <p>Manage your shop quickly</p>
+                    </div>
+                </div>
+
+                <div class="quick-grid">
+
+                    <button onclick="openSaleModal()" class="quick-card">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <strong>Add Sale</strong>
+                        <span>Record a new sale</span>
+                    </button>
+
+                    <button onclick="openExpenseModal()" class="quick-card">
+                        <i class="fa-solid fa-receipt"></i>
+                        <strong>Add Expense</strong>
+                        <span>Record an expense</span>
+                    </button>
+
+                    <button onclick="openStockModal()" class="quick-card">
+                        <i class="fa-solid fa-box-open"></i>
+                        <strong>Add Stock</strong>
+                        <span>Add products</span>
+                    </button>
+
+                </div>
+
+
+                <!-- Transactions -->
+
+                <div class="section-header transaction-header">
+
+                    <div>
+                        <h2>Recent Transactions</h2>
+                        <p>Your latest business activities</p>
+                    </div>
+
+                    <button onclick="showPage('sales')" class="view-btn">
+                        View All
+                    </button>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="transactionTable">
+
+                            <tr>
+                                <td colspan="4" class="empty">
+                                    No transactions yet
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SALES ================= -->
+
+            <section id="sales" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Sales</h2>
+                        <p>Manage your shop sales</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openSaleModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Sale
+                    </button>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="salesTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= EXPENSES ================= -->
+
+            <section id="expenses" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Expenses</h2>
+                        <p>Track your business expenses</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openExpenseModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Expense
+                    </button>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Expense</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="expensesTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= INVENTORY ================= -->
+
+            <section id="inventory" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Inventory</h2>
+                        <p>Manage your shop products</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openStockModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Stock
+                    </button>
+
+                </div>
+
+                <div class="inventory-grid" id="inventoryGrid">
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CUSTOMERS ================= -->
+
+            <section id="customers" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Customers</h2>
+                        <p>Manage customer information</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="addCustomer()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Customer
+                    </button>
+
+                </div>
+
+                <div class="customer-message">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <h2>Customer Management</h2>
+
+                    <p>
+                        Customer payment tracking can be added here.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================= SALE MODAL ================= -->
+
+    <div class="modal" id="saleModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Add Sale</h2>
+                    <p>Record a new sale</p>
+                </div>
+
+                <button onclick="closeModal('saleModal')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <label>Product Name</label>
+
+            <input
+                type="text"
+                id="saleProduct"
+                placeholder="Example: Rice"
+            >
+
+            <label>Sale Amount</label>
+
+            <input
+                type="number"
+                id="saleAmount"
+                placeholder="Enter amount"
+            >
+
+            <div class="modal-actions">
+
+                <button
+                    class="cancel-btn"
+                    onclick="closeModal('saleModal')"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="primary-btn"
+                    onclick="addSale()"
+                >
+                    Add Sale
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= EXPENSE MODAL ================= -->
+
+    <div class="modal" id="expenseModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Add Expense</h2>
+                    <p>Record a business expense</p>
+                </div>
+
+                <button onclick="closeModal('expenseModal')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <label>Expense Name</label>
+
+            <input
+                type="text"
+                id="expenseName"
+                placeholder="Example: Electricity"
+            >
+
+            <label>Amount</label>
+
+            <input
+                type="number"
+                id="expenseAmount"
+                placeholder="Enter amount"
+            >
+
+            <div class="modal-actions">
+
+                <button
+                    class="cancel-btn"
+                    onclick="closeModal('expenseModal')"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="primary-btn"
+                    onclick="addExpense()"
+                >
+                    Add Expense
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= STOCK MODAL ================= -->
+
+    <div class="modal" id="stockModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Add Stock</h2>
+                    <p>Add products to inventory</p>
+                </div>
+
+                <button onclick="closeModal('stockModal')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <label>Product Name</label>
+
+            <input
+                type="text"
+                id="stockProduct"
+                placeholder="Example: Biscuits"
+            >
+
+            <label>Quantity</label>
+
+            <input
+                type="number"
+                id="stockQuantity"
+                placeholder="Enter quantity"
+            >
+
+            <div class="modal-actions">
+
+                <button
+                    class="cancel-btn"
+                    onclick="closeModal('stockModal')"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="primary-btn"
+                    onclick="addStock()"
+                >
+                    Add Stock
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
